@@ -54,12 +54,14 @@ int main(int argc, char *argv[])
     switch (mode)
     {
         case 0:
+            printf("rgb888 to yuv422i\n");
             gettimeofday(&starttime, NULL);
             rgb888_to_yuv422i(prgb888, pyuv, w, h);
             gettimeofday(&endtime, NULL);
             fwrite(pyuv, 1, 2*w*h, pfile_yuv);
             break;
         case 1:
+            printf("rgb888 to yuv422p\n");
             gettimeofday(&starttime, NULL);
             rgb888_to_yuv422p(prgb888, pyuv, w, h);
             gettimeofday(&endtime, NULL);
@@ -69,6 +71,10 @@ int main(int argc, char *argv[])
 
     printf("Start time: %ld us\n", starttime.tv_usec);
     printf("End time: %ld us\n", endtime.tv_usec);
+    if (endtime.tv_usec > starttime.tv_usec)
+    {
+        printf("process time: %ld us\n", endtime.tv_usec - starttime.tv_usec);
+    }
     
 out:
     if (pfile_yuv)
