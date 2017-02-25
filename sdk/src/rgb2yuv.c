@@ -84,3 +84,40 @@ int rgb888_to_yuv422p(unsigned char *prgb888, unsigned char *pyuv422p, int w, in
 
     return 0;
 }
+
+int rgb888_to_yuv420p(unsigned char *prgb888, unsigned char *pyuv420p, int w, int h)
+{
+    int i,j;
+    unsigned char r,g,b;
+    int y,u,v;
+    unsigned char *py,*pu,*pv;
+    
+    if (((w & 0x1) != 0) || ((h & 0x1) != 0))
+    {
+        printf("width and height must be multiple of 2.\n");
+        return -1;
+    }
+
+    py = pyuv420p;
+    pu = py + w * h;
+    pv = pu + w * h / 4;
+
+    for (i = 0; i < h; i++)
+    {
+        for (j = 0; j < w; j++)
+        {
+            r = *prgb888++;
+            g = *prgb888++;
+            b = *prgb888++;
+            RGB2YUV(b,g,r,y,u,v);
+            *py++ = y;
+            if ((i & 0x1) && (j & 0x1))
+            {
+                *pu++ = u;
+                *pv++ = v;
+            }
+        }
+    }
+
+    return 0;
+}

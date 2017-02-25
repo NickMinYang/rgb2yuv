@@ -20,12 +20,18 @@ int main(int argc, char *argv[])
     if (argc < 4)
     {
         printf("demo mode infile outfile\n");
-        printf("mode: 0-rgb888 to yuv422i, 1-rgb888 to yuv422p\n");
+        printf("mode: 0-rgb888 to yuv422i, 1-rgb888 to yuv422p, 3-rgb888 to yuv420p\n");
         printf("\n");
         return 0;
     }
 
     mode = atoi(argv[1]); 
+    if ((mode != 0) & (mode != 1) & (mode !=3))
+    {
+        printf("wrong mode:%d\n",mode);
+        return 0 ;
+    }
+
     w = atoi(argv[2]); 
     h = atoi(argv[3]); 
     prgb888 = malloc(3*w*h);
@@ -66,6 +72,13 @@ int main(int argc, char *argv[])
             rgb888_to_yuv422p(prgb888, pyuv, w, h);
             gettimeofday(&endtime, NULL);
             fwrite(pyuv, 1, 2*w*h, pfile_yuv);
+            break;
+        case 3:
+            printf("rgb888 to yuv420p\n");
+            gettimeofday(&starttime, NULL);
+            rgb888_to_yuv420p(prgb888, pyuv, w, h);
+            gettimeofday(&endtime, NULL);
+            fwrite(pyuv, 1, w*h*3/2, pfile_yuv);
             break;
     }
 

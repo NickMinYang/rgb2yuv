@@ -8,3 +8,4 @@ make clean;make
 
 ./demo 0 1280 720 rgb888.bin yuv422i.yuv
 ./demo 1 1280 720 rgb888.bin yuv422p.yuv
+./demo 3 1280 720 rgb888.bin yuv420p.yuv
