@@ -9,6 +9,7 @@ extern "C"{
 
 int rgb888_to_yuv422i(unsigned char *prgb888, unsigned char *pyuv422i, int w, int h);
 int rgb888_to_yuv422p(unsigned char *prgb888, unsigned char *pyuv422p, int w, int h);
+int rgb888_to_yuv420i(unsigned char *prgb888, unsigned char *pyuv420i, int w, int h);
 int rgb888_to_yuv420p(unsigned char *prgb888, unsigned char *pyuv420p, int w, int h);
 
 #ifdef __cplusplus
